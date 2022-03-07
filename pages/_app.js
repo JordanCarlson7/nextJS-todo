@@ -1,11 +1,14 @@
 import "../styles/globals.css";
 import { ToDoContextProvider } from "./api/toDo-context";
+import { SessionProvider } from "next-auth/react";
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   return (
-    <ToDoContextProvider>
-      <Component {...pageProps} />
-    </ToDoContextProvider>
+    <SessionProvider session={session}>
+      <ToDoContextProvider>
+        <Component {...pageProps} />
+      </ToDoContextProvider>
+    </SessionProvider>
   );
 }
 
