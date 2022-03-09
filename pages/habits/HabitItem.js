@@ -1,11 +1,13 @@
-import  Link  from "next/Link";
+import Link from "next/Link";
+import classes from "./HabitItem.module.css";
 
 const HabitItem = (props) => {
   return (
-    // ${key}
-    <Link href={`/habits/${props.id}`}>
-      <h1>
-        {props.item?.name}
+    // ${key}<
+    <div>
+      <h1 className={classes.listItem}>
+        <input type="checkbox" className={classes.toggle}></input>
+        <Link href={`/habits/${props.id}`}>{props.item?.name}</Link>
         {/* {props.item?.frequency} */}
         {props.item?.goal}
         {/* {props.item?.isPositive} */}
@@ -14,9 +16,9 @@ const HabitItem = (props) => {
           {/* <li>{props.item?.state.checkedRate}</li> */}
           <li>{props.item?.state.lastUsed.toString()}</li>
           {/* <li>{props.item?.state.isCompleted}</li> */}
-          </ul>
+        </ul>
       </h1>
-    </Link>
+    </div>
   );
 };
 
