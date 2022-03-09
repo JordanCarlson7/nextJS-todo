@@ -15,12 +15,7 @@ export default function LoginForm() {
             </div>
         </form>
           )}
-          {status === "authenticated" && 
-          <div>
-            <p>Signed in as {session.user.email}</p>
-            <button className="signout" onClick={() => signOut()}>Sign Out</button>
-          </div>
-          }
+
       </div>
 
       <svg xmlns="http://www.w3.org/2000/svg" className="icons">
