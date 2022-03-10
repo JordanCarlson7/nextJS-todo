@@ -1,5 +1,7 @@
-import { Fragment } from "react/cjs/react.production.min";
+import { Fragment } from "react";
 import HabitList from "./HabitList";
+import { signOut } from 'next-auth/react';
+
 
 export async function getStaticProps() {
   const req = await fetch("http://127.0.0.1:3000/api/DBaccess/habit");
@@ -11,11 +13,14 @@ export async function getStaticProps() {
   };
 }
 
+
+
 export default function Habit({ habits }) {
-  return (
+    
+    return (
     <Fragment>
       <HabitList habits={habits}></HabitList>
-      <button className="signout" onClick={() => signOut()}>
+      <button className="signout" onClick={() => signOut({callbackUrl: '/'})}>
         Sign Out
       </button>
     </Fragment>
