@@ -1,17 +1,25 @@
+export async function getServerSideProps(context) {
+  console.log(context.query.habit)
+  return {
+    props:  {habit: JSON.parse(context.query.habit)}
+  }
+}
 
 const HabitDetail = (props) => {
+  console.log(props.habit)
+  const habit = props.habit; 
+
   return (
     <div>
      <h1>
-        {props.item?.name}
-        {props.item?.frequency}
-        {props.item?.goal}
-        {props.item?.isPositive}
-        {props.item?.color}
+        {habit?.name}
+        {habit?.goal}
+        {habit?.isPositive}
+        {habit?.color}
         <ul>
-          <li>{props.item?.state.checkedRate}</li>
-          <li>{props.item?.state.lastUsed.toString()}</li>
-          <li>{props.item?.state.isCompleted}</li>
+          <li>{habit?.state.checkRate}</li>
+          <li>{habit?.state.lastUsed.toString()}</li>
+          <li>{habit?.state.isComplete}</li>
           </ul>
       </h1>
     </div>

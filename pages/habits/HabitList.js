@@ -38,6 +38,9 @@ const HabitList = ({ habits }) => {
           return <HabitItem item={item} key={index}></HabitItem>;
         })}
       </ul>
+      <form>
+        
+      </form>
     </Fragment>
   );
 };
