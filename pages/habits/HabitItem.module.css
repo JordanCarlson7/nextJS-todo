@@ -5,8 +5,10 @@
 
 .listItem {
     margin: 0;
-    border-top: 1px solid black;
-    border-bottom: 1px solid black;
+    color: #fff;
+    border-radius: 20px;
+    text-align: center;
+    margin: .25em;
 }
 
 .toggle {
@@ -36,3 +38,55 @@
       content: attr(data-tg-on);
   }
   
+  .date {
+      font-size: small;
+      margin: 0px;
+
+  }
+
+  .title {
+    font-size: x-large;
+  }
+
+  .title::first-letter {
+      text-transform: uppercase;
+  }
+
+  .listItem__content {
+
+  }
+
+  .checkRate {
+      font-size: x-large;
+
+  }
+
+  .done {
+    background-color: #85dead;
+    display: grid;
+    border-radius: 20px;
+    grid-template-columns: 1fr 3fr 1fr;
+    grid-template-rows: 1fr;
+    align-self: center;
+    align-items: center;
+  }
+
+  .working {
+    background: #ea4c88;
+    display: grid;
+    border-radius: 20px;
+    grid-template-columns: 1fr 3fr 1fr;
+    grid-template-rows: 1fr;
+    align-self: center;
+    align-items: center;
+  }
+
+  .inactive {
+      background-color: #888;
+      display: grid;
+      border-radius: 20px;
+      grid-template-columns: 1fr 3fr 1fr;
+      grid-template-rows: 1fr;
+      align-self: center;
+      align-items: center;
+  }
