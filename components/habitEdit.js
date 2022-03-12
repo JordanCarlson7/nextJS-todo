@@ -23,8 +23,40 @@ const HabitEdit = (props) => {
     const isNegative = isNegativeInput.current.value; //radio button
     const checkRate = checkRateInput.current.value; //number
     const isComplete = isCompleteInput.current.value; //radio button
-    const isInComplete = isInCompleteInput.current.value; //radio button
+    // const isInComplete = isInCompleteInput.current.value; //radio button
 
+    const habit = {
+      name: name,
+      goal: goal,
+      isPositive: isPositive ? isPositive : isNegative,
+      state: {
+        checkRate: checkRate,
+        lastUsed: Date.now(),
+        isComplete: isComplete
+      }
+    }
+
+    if(props?.habit){ //editing current existing
+      habit.id = habit_id;
+      console.log(habit)
+      fetch("http://localhost:3000/api/DBaccess/habit", {
+        method: "PATCH",
+        headers: {
+          'Content-Type': 'application/json'
+          // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: JSON.stringify(habit)
+      })
+    } else { // New Habit
+      fetch("http://localhost:3000/api/DBaccess/habit", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+          // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: JSON.stringify(habit)
+      })
+    }
     //Submit data code
 
     props.toggle.habitToggle(); // calls the toggle edit state button in parent element (function passed in through props)
@@ -32,76 +64,106 @@ const HabitEdit = (props) => {
 
   return (
     <div>
-      <form className="align grid" onSubmit={submitFormHandler}>
-        <label>Name: </label>
-        <input
-          className="form__field"
-          type="text"
-          defaultValue={habit?.name}
-          ref={nameInput}
-        />
+      <form className="" onSubmit={submitFormHandler}>
+        <fieldset>
+<legend><h2>General Info</h2></legend>
+        <div className="form__field">
+          <label htmlFor="habit-name">Name: </label>
+          <input
+            className="form__input"
+            type="text"
+            id="habit-name"
+            defaultValue={habit?.name}
+            ref={nameInput}
+          />
+        </div>
 
-        <label>Goal: </label>
-        <input
-          className="form__field"
-          type="number"
-          defaultValue={habit?.goal}
-          min="1"
-          step="1"
-          ref={goalInput}
-        />
-        <label>Habit type</label>
-        <input
-          className="form__field"
-          type="radio"
-          name="isPositive"
-          defaultValue={true}
-          checked={habit?.isPositive ? "checked" : null}
-          ref={isPositiveInput}
-        />
-        <label>Positive</label>
-        <input
-          className="form__field"
-          type="radio"
-          name="isPositive"
-          defaultValue={false}
-          checked={!habit?.isPositive ? "checked" : null}
-          ref={isNegativeInput}
-        />
-        <label>Negative</label>
+        <div className="form__field">
+          <label>Goal: </label>
+          <input
+            className="form__input"
+            type="number"
+            defaultValue={habit?.goal ? habit?.goal : 0}
+            min="1"
+            step="1"
+            ref={goalInput}
+          />
+        </div>
+        <div className="form__field">
+          <label>Completed</label>
+          <input
+            className="form__input"
+            type="number"
+            defaultValue={habit?.state.checkRate}
+            min="1"
+            step="1"
+            ref={checkRateInput}
+          />
+        </div>
+        </fieldset>
+
+        
+
+        <fieldset>
+          <legend><h2>Habit type</h2></legend>
+
+        <div className="form__field">
+          <label>Positive</label>
+          <input
+            className="form__input"
+            type="radio"
+            name="isPositive"
+            defaultValue={true}
+            checked={habit?.isPositive ? "checked" : null}
+            ref={isPositiveInput}
+            />
+        </div>
+
+        <div className="form__field">
+          <label>Negative</label>
+          <input
+            className="form__input"
+            type="radio"
+            name="isPositive"
+            defaultValue={false}
+            checked={!habit?.isPositive ? "checked" : null}
+            ref={isNegativeInput}
+            />
+        </div>
+            </fieldset>
+
         {/* <label>Color</label> */}
         {/* <select type=""> {habit?.color}</select> */}
-        <label>Number of times completed</label>
+
+        {/* <h2>Status:</h2> */}
+        <hr />
+        <div className="form__field">
+          <label>Complete</label>
+          <input
+            className="form__input"
+            type="checkbox"
+            name="isComplete"
+            defaultValue={true}
+            checked={habit?.state.isComplete ? "checked" : null}
+            ref={isCompleteInput}
+          />
+        </div>
+        {/* 
+        <div className="form__field">
+          <label>Incomplete</label>
         <input
-          className="form__field"
-          type="number"
-          defaultValue={habit?.state.checkRate}
-          min="1"
-          step="1"
-          ref={checkRateInput}
-        />
-        <label>Status:</label>
-        <input
-          className="form__field"
-          type="radio"
-          name="isComplete"
-          defaultValue={true}
-          checked={habit?.state.isComplete ? "checked" : null}
-          ref={isCompleteInput}
-        />
-        <label>Complete</label>
-        <input
-          className="form__field"
+          className="form__input"
           type="radio"
           name="isComplete"
           defaultValue={false}
           checked={!habit?.state.isComplete ? "checked" : null}
           ref={isInCompleteInput}
         />
-        <label>Incomplete</label>
-        <button className="form__field" type="submit">
-          Update
-        </button>
+        </div> */}
+
+        <div className="form__field">
+          <button type="submit">Update</button>
+        </div>
       </form>
     </div>
   );

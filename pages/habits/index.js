@@ -20,7 +20,7 @@ export default function Habit({ habits }) {
     return (
     <Fragment>
       <HabitList habits={habits}></HabitList>
-      <button className="signout" onClick={() => signOut({callbackUrl: '/'})}>
+      <button className="signout btn" onClick={() => signOut({callbackUrl: '/'})}>
         Sign Out
       </button>
     </Fragment>

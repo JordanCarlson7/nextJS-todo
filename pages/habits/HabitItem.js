@@ -51,9 +51,11 @@ const HabitItem = (props) => {
             </Link>
             <p className={classes.date}>Started: {date.toDateString()}</p>
           </p>
-          <button type="button" onClick={habitDetailToggle}>
-            Expand
+          <div className="form_field">
+          <button type="button" className="edit-btn" onClick={habitDetailToggle}>
+            Edit
           </button>
+          </div>
         </div>
       )}
 
