@@ -5,6 +5,7 @@ import HabitItem from "./HabitItem";
 import { useContext, useEffect } from "react";
 import classes from "./HabitList.module.css";
 import { Fragment } from "react/cjs/react.production.min";
+import { useState } from "react/cjs/react.production.min";
 
 // const data = [
 //   new Habit("eaza", Frequency.DAILY, 3, false, Color.RED, {
@@ -30,13 +31,14 @@ import { Fragment } from "react/cjs/react.production.min";
 // ];
 
 const HabitList = ({ habits }) => {
+  // const [habitsArray, setHabits] = useState(habits);
   
-  return (
+  return ( 
     <Fragment>
       <h2>My Todo List</h2>
       <ul className={classes.list}>
         {habits.map((item, index) => {
-          return <HabitItem item={item} key={index}></HabitItem>;
+          return <HabitItem item={item} key={index} habitsArray={habits}></HabitItem>;
         })}
       </ul>
       <form>
