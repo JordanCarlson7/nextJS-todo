@@ -42,7 +42,7 @@ const HabitList = ({ habits }) => {
           return <HabitItem item={item} key={index} habitsArray={habits}></HabitItem>;
         })}
       </ul>
-      <button type="button" onClick={habitNewToggle}>NEW HABIT</button>
+      <button type="button" onClick={habitNewToggle}>{newHabit ? "Cancel" :"NEW HABIT"}</button>
       {newHabit && <HabitEdit toggle={{habitToggle: habitNewToggle}} />}
     </Fragment>
   );

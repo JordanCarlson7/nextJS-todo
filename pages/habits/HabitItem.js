@@ -62,7 +62,7 @@ const HabitItem = (props) => {
           <HabitEdit habit={props.item} toggle={{habitToggle: habitDetailToggle}}></HabitEdit>
 
           <button type="button" onClick={habitDetailToggle}>
-            Expand
+            {isEditMode? "Close" : "Expand"}
           </button>
         </Fragment>
       )}
