@@ -1,9 +1,9 @@
 // import classes from "../pages/habits/HabitItem.module.css";
 import { useRef } from "react";
 const HabitEdit = (props) => {
-  console.log(props.habit);
-  const habit = props.habit;
-  const habit_id = habit._id;
+  console.log(props?.habit);
+  const habit = props?.habit;
+  const habit_id = habit?._id | null;
 
   const goalInput = useRef(null);
   const nameInput = useRef(null);

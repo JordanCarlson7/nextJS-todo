@@ -1,11 +1,8 @@
 import Habit from "../../util/Habit";
-import { Frequency } from "../../util/Frequency.enum";
-import { Color } from "../../util/Color.enum";
 import HabitItem from "./HabitItem";
-import { useContext, useEffect } from "react";
 import classes from "./HabitList.module.css";
-import { Fragment } from "react/cjs/react.production.min";
-import { useState } from "react/cjs/react.production.min";
+import {  Fragment, useState } from "react";
+import HabitEdit from "../../components/habitEdit";
 
 // const data = [
 //   new Habit("eaza", Frequency.DAILY, 3, false, Color.RED, {
@@ -31,7 +28,11 @@ import { useState } from "react/cjs/react.production.min";
 // ];
 
 const HabitList = ({ habits }) => {
-  // const [habitsArray, setHabits] = useState(habits);
+  const [newHabit, setNewHabit] = useState(false);
+  
+  const habitNewToggle = () => {
+    setNewHabit(!newHabit);
+  };
   
   return ( 
     <Fragment>
@@ -41,9 +42,8 @@ const HabitList = ({ habits }) => {
           return <HabitItem item={item} key={index} habitsArray={habits}></HabitItem>;
         })}
       </ul>
-      <form>
-        <h1>Add A new Task</h1>
-      </form>
+      <button type="button" onClick={habitNewToggle}>NEW HABIT</button>
+      {newHabit && <HabitEdit toggle={{habitToggle: habitNewToggle}} />}
     </Fragment>
   );
 };
