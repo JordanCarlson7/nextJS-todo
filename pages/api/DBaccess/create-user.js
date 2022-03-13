@@ -1,6 +1,8 @@
-import connectDB from '../../middleware/mongodb';
+// import connectDB from '../../middleware/mongodb';
+import connectDB from '../../../middleware/mongodb';
 // import bcrypt from '../../middleware/bcrypt';
-import User from '../../models/user';
+// import User from '../../models/user';
+import User from '../../../models/user';
 
 const handler = async (req, res) => {
   if (req.method === 'POST') {

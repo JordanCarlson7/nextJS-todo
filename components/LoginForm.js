@@ -1,9 +1,9 @@
 import React from "react";
 // import "../styles/LoginForm.css"
-import { useSession, signOut } from "next-auth/react";
+import { useSession } from "next-auth/react";
 
 export default function LoginForm() {
-    const { data: session, status } = useSession()
+    const { data: status } = useSession()
 
   return (
     <div className="align">

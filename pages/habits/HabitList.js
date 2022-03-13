@@ -1,4 +1,3 @@
-import Habit from "../../util/Habit";
 import HabitItem from "./HabitItem";
 import classes from "./HabitList.module.css";
 import {  Fragment, useState } from "react";

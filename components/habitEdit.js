@@ -3,7 +3,7 @@ import { useRef } from "react";
 const HabitEdit = (props) => {
   console.log(props?.habit);
   const habit = props?.habit;
-  const habit_id = JSON.stringify(habit?._id) | null;
+  // const habit_id = JSON.stringify(habit?._id) | null;
 
   const goalInput = useRef(null);
   const nameInput = useRef(null);
@@ -11,7 +11,7 @@ const HabitEdit = (props) => {
   const isNegativeInput = useRef(null);
   const checkRateInput = useRef(null);
   const isCompleteInput = useRef(null);
-  const isInCompleteInput = useRef(null);
+  // const isInCompleteInput = useRef(null);
 
   const onDelete = () => {
     fetch("http://localhost:3000/api/DBaccess/habit", {

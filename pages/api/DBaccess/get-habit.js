@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router'
 import connectDB from '../../../middleware/mongodb';
 import Habit from '../../../models/habit';
 
@@ -10,7 +9,7 @@ const handler = async (req, res, next) => {
     Habit.findById(id)
     .then(habit => {
       console.log(habit);
-      res.json(habits);
+      res.json(habit);
     })
     .catch(err => {
       const error = new Error(err);
