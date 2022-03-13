@@ -50,12 +50,11 @@ const handler = async (req, res, next) => {
       * DELETE ROUTE
       */
     } else if(req.method === "DELETE"){
-      const habitId = req.id;
+      const {habitId}= req.body;
       console.log(habitId);
       let deleteQuery = { _id: habitId };
       await Habit.findById(habitId).then((doc) => {
          if (doc == null) {
-           console.log(habitId)
             res.json({ message: "Habit was not found." });
             return;
          } else {

@@ -3,9 +3,7 @@ import { useRef } from "react";
 const HabitEdit = (props) => {
   console.log(props?.habit);
   const habit = props?.habit;
-  const habit_id = JSON.stringify(habit["_id"]) | null;
-
-  console.log(habit_id)
+  const habit_id = JSON.stringify(habit?._id) | null;
 
   const goalInput = useRef(null);
   const nameInput = useRef(null);
@@ -14,6 +12,16 @@ const HabitEdit = (props) => {
   const checkRateInput = useRef(null);
   const isCompleteInput = useRef(null);
   const isInCompleteInput = useRef(null);
+
+  const onDelete = () => {
+    fetch("http://localhost:3000/api/DBaccess/habit", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ habitId: habit?._id }),
+    });
+  };
 
   const submitFormHandler = (event) => {
     event.preventDefault(); // or we could reload the page and get new props from updated database
@@ -26,34 +34,45 @@ const HabitEdit = (props) => {
     const isComplete = isCompleteInput.current.value; //radio button
     // const isInComplete = isInCompleteInput.current.value; //radio button
 
-    if(props?.habit){ //editing current existing
+    if (props?.habit) {
+      //editing current existing
       // tempHabit._id = habit_id;
       // console.log(tempHabit)
       fetch("http://localhost:3000/api/DBaccess/habit", {
         method: "PATCH",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           _id: habit?._id,
           name: name,
           goal: goal,
-          isPositive: (isPositive ? isPositive : isNegative),
+          isPositive: isPositive ? isPositive : isNegative,
           state: {
-            checkRate: (checkRate ? checkRate : 0),
+            checkRate: checkRate ? checkRate : 0,
             lastUsed: Date.now(),
-            isComplete: isComplete
-          }
-        })
-      })
-    } else { // New Habit
+            isComplete: isComplete,
+          },
+        }),
+      });
+    } else {
+      // New Habit
       fetch("http://localhost:3000/api/DBaccess/habit", {
         method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(habit)
-      })
+        body: JSON.stringify({
+          name: name,
+          goal: goal,
+          isPositive: isPositive ? isPositive : isNegative,
+          state: {
+            checkRate: checkRate ? checkRate : 0,
+            lastUsed: Date.now(),
+            isComplete: isComplete,
+          },
+        }),
+      });
     }
     //Submit data code
 
@@ -64,71 +83,73 @@ const HabitEdit = (props) => {
     <div>
       <form className="" onSubmit={submitFormHandler}>
         <fieldset>
-<legend><h2>General Info</h2></legend>
-        <div className="form__field">
-          <label htmlFor="habit-name">Name: </label>
-          <input
-            className="form__input"
-            type="text"
-            id="habit-name"
-            defaultValue={habit?.name}
-            ref={nameInput}
-          />
-        </div>
+          <legend>
+            <h2>General Info</h2>
+          </legend>
+          <div className="form__field">
+            <label htmlFor="habit-name">Name: </label>
+            <input
+              className="form__input"
+              type="text"
+              id="habit-name"
+              defaultValue={habit?.name}
+              ref={nameInput}
+            />
+          </div>
 
-        <div className="form__field">
-          <label>Goal: </label>
-          <input
-            className="form__input"
-            type="number"
-            defaultValue={habit?.goal ? habit?.goal : 0}
-            min="1"
-            step="1"
-            ref={goalInput}
-          />
-        </div>
-        <div className="form__field">
-          <label>Completed</label>
-          <input
-            className="form__input"
-            type="number"
-            defaultValue={habit?.state.checkRate}
-            min="1"
-            step="1"
-            ref={checkRateInput}
-          />
-        </div>
+          <div className="form__field">
+            <label>Goal: </label>
+            <input
+              className="form__input"
+              type="number"
+              defaultValue={habit?.goal ? habit?.goal : 0}
+              min="1"
+              step="1"
+              ref={goalInput}
+            />
+          </div>
+          <div className="form__field">
+            <label>Completed</label>
+            <input
+              className="form__input"
+              type="number"
+              defaultValue={habit?.state.checkRate}
+              min="1"
+              step="1"
+              ref={checkRateInput}
+            />
+          </div>
         </fieldset>
 
-        
-
         <fieldset>
-          <legend><h2>Habit type</h2></legend>
+          <legend>
+            <h2>Habit type</h2>
+          </legend>
 
-        <div className="form__field">
-          <label>Positive</label>
-          <input
-            className="form__input"
-            type="radio"
-            name="isPositive"
-            defaultValue={true}
-            checked={habit?.isPositive ? "checked" : null}
-            ref={isPositiveInput}
+          <div className="form__field">
+            <label>Positive</label>
+            <input
+              className="form__input"
+              type="radio"
+              name="isPositive"
+              defaultValue={true}
+              checked={habit?.isPositive ? "checked" : null}
+              ref={isPositiveInput}
             />
-        </div>
+          </div>
 
-        <div className="form__field">
-          <label>Negative</label>
-          <input
-            className="form__input"
-            type="radio"
-            name="isPositive"
-            defaultValue={false}
-            checked={!habit?.isPositive ? "checked" : null}
-            ref={isNegativeInput}
+          <div className="form__field">
+            <label>Negative</label>
+            <input
+              className="form__input"
+              type="radio"
+              name="isPositive"
+              defaultValue={false}
+              checked={!habit?.isPositive ? "checked" : null}
+              ref={isNegativeInput}
             />
-        </div>
-            </fieldset>
+          </div>
+        </fieldset>
 
         {/* <label>Color</label> */}
         {/* <select type=""> {habit?.color}</select> */}
@@ -160,7 +181,12 @@ const HabitEdit = (props) => {
         </div> */}
 
         <div className="form__field">
-          <button type="submit">Update</button>
+          <button className="btn" type="submit">
+            Update
+          </button>
+          <button className="btn" onClick={onDelete}>
+            Delete
+          </button>
         </div>
       </form>
     </div>
