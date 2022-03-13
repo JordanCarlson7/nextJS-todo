@@ -114,7 +114,7 @@ const HabitEdit = (props) => {
               className="form__input"
               type="number"
               defaultValue={habit?.state.checkRate}
-              min="1"
+              min="0"
               step="1"
               ref={checkRateInput}
             />

@@ -6,13 +6,41 @@ import classes from "./HabitItem.module.css";
 
 const HabitItem = (props) => {
   const date = new Date(props.item?.state.lastUsed);
+  // const habit = props.item;
   const [item, setItem] = useState(props.item);
+  const [checkRate, setCheckRate] = useState(props.item.state.checkRate);
   const [isEditMode, setIsEditMode] = useState(false);
 
   const handleClick = () => {
     let tempItem = item;
+    
+    console.log('item pre:',tempItem);
     tempItem.state.checkRate += 1;
+    
+    console.log('item updating:',tempItem);
     setItem(tempItem);
+    console.log('item updated:',tempItem);
+    setCheckRate(tempItem.state.checkRate); //would not update page without this state variable
+    console.log('item updated after:',tempItem);
+    
+    fetch("http://localhost:3000/api/DBaccess/habit", {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        _id: tempItem?._id,
+        name: tempItem?.name,
+        goal: tempItem?.goal,
+        isPositive: tempItem?.isPositive,
+        state: {
+          checkRate: tempItem.state.checkRate,
+          lastUsed: Date.now(),
+          isComplete: tempItem?.state.isComplete,
+        },
+      }),
+    });
+  //Submit data code
   };
 
   const habitDetailToggle = () => {
@@ -33,7 +61,8 @@ const HabitItem = (props) => {
           }
         >
           <h3 className={classes.checkRate} onClick={handleClick}>
-            {item?.state.checkRate}
+            {/* {item?.state.checkRate} */}
+            {checkRate}
           </h3>
           <p className={classes.title}>
             <Link
