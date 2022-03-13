@@ -72,8 +72,8 @@ const handler = async (req, res, next) => {
    */
     else if (req.method === 'PATCH') {
       // Check if body has all the data provided
-      const { id, name, goal, isPositive, color, state } = req.body;
-      console.log(id, name, goal, isPositive, color, state)
+      const { _id, name, goal, isPositive, color, state } = req.body;
+      console.log(_id, name, goal, isPositive, color, state)
 
       if (name) {
           try {
@@ -84,7 +84,7 @@ const handler = async (req, res, next) => {
               color,
               state
             }
-            await Habit.findByIdAndUpdate(id, habit)
+            await Habit.findByIdAndUpdate(_id, habit)
             .then(() => res.status(200).send("updated habit"))
             .catch((err) => {
                console.log(err);

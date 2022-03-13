@@ -1,7 +1,7 @@
 import { signOut } from "next-auth/react";
 
 export async function getServerSideProps(context) {
-  console.log(context.query.habit);
+  // console.log(context.query.habit);
   return {
     props: { habit: JSON.parse(context.query.habit) },
   };

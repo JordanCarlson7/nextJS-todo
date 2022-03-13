@@ -3,7 +3,9 @@ import { useRef } from "react";
 const HabitEdit = (props) => {
   console.log(props?.habit);
   const habit = props?.habit;
-  const habit_id = habit?._id | null;
+  const habit_id = JSON.stringify(habit["_id"]) | null;
+
+  console.log(habit_id)
 
   const goalInput = useRef(null);
   const nameInput = useRef(null);
@@ -15,7 +17,6 @@ const HabitEdit = (props) => {
 
   const submitFormHandler = (event) => {
     event.preventDefault(); // or we could reload the page and get new props from updated database
-    console.log("submitting", habit_id);
 
     const goal = goalInput.current.value; //text
     const name = nameInput.current.value; //number
@@ -25,34 +26,31 @@ const HabitEdit = (props) => {
     const isComplete = isCompleteInput.current.value; //radio button
     // const isInComplete = isInCompleteInput.current.value; //radio button
 
-    const habit = {
-      name: name,
-      goal: goal,
-      isPositive: isPositive ? isPositive : isNegative,
-      state: {
-        checkRate: checkRate,
-        lastUsed: Date.now(),
-        isComplete: isComplete
-      }
-    }
-
     if(props?.habit){ //editing current existing
-      habit.id = habit_id;
-      console.log(habit)
+      // tempHabit._id = habit_id;
+      // console.log(tempHabit)
       fetch("http://localhost:3000/api/DBaccess/habit", {
         method: "PATCH",
         headers: {
           'Content-Type': 'application/json'
-          // 'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: JSON.stringify(habit)
+        body: JSON.stringify({
+          _id: habit?._id,
+          name: name,
+          goal: goal,
+          isPositive: (isPositive ? isPositive : isNegative),
+          state: {
+            checkRate: (checkRate ? checkRate : 0),
+            lastUsed: Date.now(),
+            isComplete: isComplete
+          }
+        })
       })
     } else { // New Habit
       fetch("http://localhost:3000/api/DBaccess/habit", {
         method: "POST",
         headers: {
           'Content-Type': 'application/json'
-          // 'Content-Type': 'application/x-www-form-urlencoded',
         },
         body: JSON.stringify(habit)
       })
