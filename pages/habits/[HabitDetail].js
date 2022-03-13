@@ -12,20 +12,28 @@ const HabitDetail = (props) => {
   const habit = props.habit;
 
   return (
-    <div className="align">
-      <h1>{habit?.name}</h1>
-      <h2>{habit?.goal}</h2>
-      {habit?.isPositive}
+    <div className="habit">
+      <header className="habit-header">
+        <h1 className="habit-title">{habit?.name}</h1>
+        <h2>
+          {habit?.state.checkRate}/{habit?.goal}
+        </h2>
+      </header>
+      {/* {habit?.isPositive}
       {habit?.color}
       <ul>
-        <li>{habit?.state.checkRate}</li>
+        <li></li>
         <li>{habit?.state.lastUsed.toString()}</li>
         <li>{habit?.state.isComplete}</li>
-      </ul>
-      <button
-        className="signout"
-        onClick={() => signOut({ callbackUrl: "/" })}
-      ></button>
+      </ul> */}
+      <div className="habit-footer">
+        <button
+          className="signout btn"
+          onClick={() => signOut({ callbackUrl: "/" })}
+        >
+          Sign Out
+        </button>
+      </div>
     </div>
   );
 };
