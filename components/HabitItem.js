@@ -1,4 +1,4 @@
-import Link from "next/Link";
+// import Link from "next/Link";
 import { useState } from "react";
 import { Fragment } from "react/cjs/react.development";
 import HabitEdit from "./habitEdit";
@@ -65,7 +65,7 @@ const HabitItem = (props) => {
             {checkRate}
           </h3>
           <p className={classes.title}>
-            <Link
+            {/* <Link
               href={{
                 // pathname: `/habits/${props.item?._id}`,
                 pathname: "/habits/[HabitDetail]",
@@ -75,9 +75,9 @@ const HabitItem = (props) => {
                 },
               }}
               as={`habits/${props.item?.name}`}
-            >
+            > */}
               {props.item?.name}
-            </Link>
+            {/* </Link> */}
             <p className={classes.date}>Started: {date.toDateString()}</p>
           </p>
           <div className="form_field">
