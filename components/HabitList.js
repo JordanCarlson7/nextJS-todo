@@ -1,7 +1,7 @@
 import HabitItem from "./HabitItem";
 import classes from "./HabitList.module.css";
 import {  Fragment, useState } from "react";
-import HabitEdit from "../../components/habitEdit";
+import HabitEdit from "./habitEdit";
 
 // const data = [
 //   new Habit("eaza", Frequency.DAILY, 3, false, Color.RED, {

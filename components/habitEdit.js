@@ -14,7 +14,7 @@ const HabitEdit = (props) => {
   // const isInCompleteInput = useRef(null);
 
   const onDelete = () => {
-    fetch("http://localhost:3000/api/DBaccess/habit", {
+    fetch("https://xenodochial-noether-1e417b.netlify.app/api/DBaccess/habit", {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -38,7 +38,7 @@ const HabitEdit = (props) => {
       //editing current existing
       // tempHabit._id = habit_id;
       // console.log(tempHabit)
-      fetch("http://localhost:3000/api/DBaccess/habit", {
+      fetch("https://xenodochial-noether-1e417b.netlify.app/api/DBaccess/habit", {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -57,7 +57,7 @@ const HabitEdit = (props) => {
       });
     } else {
       // New Habit
-      fetch("http://localhost:3000/api/DBaccess/habit", {
+      fetch("https://xenodochial-noether-1e417b.netlify.app/api/DBaccess/habit", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

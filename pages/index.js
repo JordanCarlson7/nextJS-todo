@@ -5,7 +5,7 @@ import styles from '../styles/Home.module.css'
 import { useRouter } from 'next/router';
 
 export default function Home() {
-  const { data: status } = useSession() //session
+  const { data: session, status } = useSession() //session
   const router = useRouter();
 
   if (status === 'authenticated') {

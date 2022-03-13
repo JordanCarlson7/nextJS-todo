@@ -1,7 +1,7 @@
 import Link from "next/Link";
 import { useState } from "react";
 import { Fragment } from "react/cjs/react.development";
-import HabitEdit from "../../components/habitEdit";
+import HabitEdit from "./habitEdit";
 import classes from "./HabitItem.module.css";
 
 const HabitItem = (props) => {
@@ -23,7 +23,7 @@ const HabitItem = (props) => {
     setCheckRate(tempItem.state.checkRate); //would not update page without this state variable
     console.log('item updated after:',tempItem);
     
-    fetch("http://localhost:3000/api/DBaccess/habit", {
+    fetch("https://xenodochial-noether-1e417b.netlify.app/api/DBaccess/habit", {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
